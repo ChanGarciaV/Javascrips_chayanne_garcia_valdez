@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Procesar idioma</title>
+
+</head>
+
+<body>
+    <!-- Elige para español: <input id ="text1"  type = "radio">
+    Choose to English:  <input id ="text2"  type = "radio"> -->
+    <!-- El onclick hace que se enlace al presionar -->
+    <input type="radio" id="currentLanguage" name="currentLanguage" onclick="changeDelegate(this)" value="english">
+    English<br>
+    <!-- tienes el mismo nombre porque cuando seleccionas uno y seleccionas otro se deselecciona porque son del mismo grupo el name es el que 
+    indica que es del mismo grupo -->
+    <input type="radio" id="currentLanguage" name="currentLanguage" onclick="changeDelegate(this)" value="spanish">
+    Español<br>
+    <input type="button" id="btnAlertUsuario" value="Message">
+
+    <!-- <button type="radio"> Inglés </button>
+    <button type="radio"> Español </button> -->
+    <script>
+
+        //  radioButton = document.getElementById("currentLanguage"); // obtengo el radio por ID en este caso los 2 radio se llaman igual 
+        // radioButton.addEventListener("click",changeDelegate); // me pongo a escuchar los eventos si se hace click sobre alguno de los radio
+
+
+        // el delegado es una tarea que se tiene que hacer en especifico responder ante un elemento,
+        /
+        // esta es la funcion para saludar en españos
+        let saludarUsuario = function () {
+            alert("Hola, usuario!");
+        }
+
+        // function SaludaUsuario(){
+        //     alert("Hola, usuario!");
+        // }
+
+        //Esta es la funcion delegada para el saludo en ingles?
+        let greetUser = function () {
+            alert("Hello, user!");
+        }
+
+        // function GreetUser(){
+        //     alert("Hello, user!");
+        // }
+
+        var eventHandler; // la variable se define solo 1 vez para manejar la asignacion del litening
+
+        function changeDelegate(radioButton) {
+
+            let buton = document.getElementById("btnAlertUsuario");
+            buton.removeEventListener("click", eventHandler); // se remueve el event que esta escuchando
+            // buton.removeEventListener("click",SaludaUsuario);
+
+            if (radioButton.value == "english") {
+                eventHandler = greetUser; // se asigna cual es el que esta escuchando 
+                // buton.addEventListener("click",GreetUser);
+            } else {
+                eventHandler = saludarUsuario; // asignar el que esta escuchando
+            }
+            // buton.removeEventListener("click", eventHandler);
+            buton.addEventListener("click", eventHandler); // se agrega el evento que escucha
+
+            //  boton.addEventListener("click",radioButton.value==="English"?GreetUser:SaludaUsuario);
+            // alert(this.value);
+        }
+
+    </script>
+</body>
+
+</html>

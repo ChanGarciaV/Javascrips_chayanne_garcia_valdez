@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>FetchAPI</title>
+
+</head>
+
+<body>
+    <!-- para hacerlo con XHR-RESTAPI se tiene que hacer un onclick en el boton junto a una funcion en el script -->
+    Titulo: <input type="text" id="txtTitulo">
+    Contenido: <input type="text" id="txtContenido">
+    <input id="btnBuscar" type="button" value="Agregar nota" onclick="consultaUsuario()">
+    <input id="btnBuscar2" type="button" value="Ver nota" onclick="getUsuario()">
+    <ol id="list-note">
+
+    </ol>
+
+    <!-- <button id="btn1">Search Id</button> -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <!-- referencia a la libreria (necesita el jQuery) si se quita no funciona el ajax-->
+
+    <script>
+        var listNotas = document.getElementById("list-note");
+        var newItem = document.createElement('li');
+       
+        function getUsuario() {
+            alert('si entra al get')
+            // fetch(`https://jsonplaceholder.typicode.com/users/${claveBuscada}`)
+            while (listNotas.firstChild)
+            listNotas.removeChild(listNotas.firstChild);
+
+            fetch('http://localhost:3000/notes')
+                .then(
+                    response => {
+                        // si no sale bien arroja una exepcion
+                        if (!response.ok) throw Error(response.status); // aqui evaluamos la respuesta si esta bien continua 
+                        return response.json();
+                    }
+                )  // lo obtenermos en una variable response el . json es para indicar que lo queremos en formato json
+                .then(notas => {
+                    notas.forEach((nota) => {
+                        let nuevaNota = document.createElement("li");
+                        nuevaNota.innerHTML = `Titulo: ${nota.title} Contenido: ${nota.content}`;
+                        listNotas.appendChild(nuevaNota)
+                    });
+                });
+                //     for (note of notes) {
+                //         console.log(`Titulo: ${note.title} Contenido: ${note.content}`);
+
+                //         newItem.innerText = `Titulo: ${note.title} Contenido: ${note.content}`;
+                //         ListNote.appendChild(newItem);
+                //     }
+
+                //     // console.log(user)
+                // })
+                // .catch(error => console.log('No se pudo conectar')); // en una variable json asignamos y imprimimos el json
+
+
+        }
+
+        // post
+        function consultaUsuario() {
+            let txtTitulo = document.getElementById("txtTitulo");
+            let txtContenido = document.getElementById("txtContenido");
+            console.log(txtTitulo.value)
+            console.log(txtContenido.value)
+            //alert(txtTitulo.value);
+            //alert(txtContenido.value);
+            fetch('http://localhost:3000/notes', {
+                method: 'POST',
+                body: JSON.stringify({
+                    title: txtTitulo.value,
+                    content: txtContenido.value
+                }),
+                headers: {
+                    "Content-type": "application/json"
+                }
+            })
+                .then(response => response.json())
+                .then(json => console.log(json))
+                .finally()
+        }
+
+
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>DOM</title>
+
+    <script>console.log('Within the HEAD');</script>
+</head>
+
+<body>
+    <div id="grupoBotones">
+
+        <button Id="btn1" class="Odd">Boton1</button>
+        <button Id="btn2">Boton2</button>
+        <button Id="btn3" class="Odd">Boton3</button>
+
+    </div>
+
+    <!-- Tres botones en el contenido de la pagina -->
+    <script>
+        console.log(document.children)
+        botones = document.getElementsByTagName('button');
+        console.log(botones);
+
+       // botonesNones = document.getElementsByClassName("Odd");
+       
+
+        // en esta parte agregamos un boton dinamico
+        let grupoBotones = document.getElementById("grupoBotones"); // creamos la referencia de un grupo de botones que estan
+        // en el div del body
+        // se cres un nuevo elemento boton
+        let nuevoBoton = document.createElement('button');
+        // se inyecta el nuevo boton
+        nuevoBoton.innerText = "Botton 4";
+        nuevoBoton.setAttribute("id","btn4"); // aqui especificamos que atributo vasmos a cambiar y cual vamos a poder
+        // y se agrega al grupo para que aparezca
+        grupoBotones.appendChild(nuevoBoton);
+        console.log(grupoBotones);
+
+        for (boton of botones) {
+            boton.style.color = "blue";
+
+        }
+        botonesNones = document.getElementsByClassName("Odd");
+        console.log(botonesNones);
+
+        for(boton of botonesNones)
+        {
+            boton.style.color = "red";
+        }
+
+        boton1 = document.getElementById('btn1');
+        boton1.addEventListener('click', function () {
+            alert('Clinck boton 1');
+        })
+        // los objetos dentro del children son los elementos del DOM creo
+    </script>
+
+</body>
+
+</html>

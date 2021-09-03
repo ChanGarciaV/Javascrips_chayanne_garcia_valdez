@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Consultar ususarios</title>
+
+</head>
+
+<body>
+    Clave del usuario: <input  type="text" id="txtClaveUsuario" >
+    <input id="btnBuscar" type="button" value="Buscar usuario">
+    Nombre: <input type="text" id="txtNombre" readonly>
+    Email: <input type="text" id="txtEmail" readonly>
+
+    <!-- <button id="btn1">Search Id</button> -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <!-- referencia a la libreria (necesita el jQuery) si se quita no funciona el ajax-->
+
+    <script>
+        // agregar la libreria para el JQuery (para que lea el simbolo $)
+            // hace la conexion a la ruta api
+            // el simbolo $ quiere decir que lo estamos implementando por medio de JQUery esta corriendo en el contexto de jquery
+            $(document).ready(function () {
+                $("#btnBuscar").click(function () {
+                    let claveBuscada = $("#txtClaveUsuario").val();
+                    $.ajax({
+                        // que url queremos que consuma
+                        url: `https://jsonplaceholder.typicode.com/users/${claveBuscada}`,
+                        contentType: "application/json", // de que tipo vamos a llamar
+                        dataType: 'json', // tipo dedato
+                        type: 'get', // aqui se puede cambiar el tipo de verbo (get,put,delete,update,patch)
+                        success: function (result) { // cualquier nombre del objeto
+                            $("#txtNombre").val(result.name);
+                            $("#txtEmail").val(result.email);
+                          //  console.log(result.title); // mensaje de si se hizo bien  con result.title solo imprime el titulo
+                        },
+                        error: function (result) {
+                            console.log('La llamada no se pudo completar');
+                           console.log(result);
+                        }
+                    });
+                });
+            });
+
+    </script>
+    <script src="ConsultaUsuarios.js"></script>
+</body>
+
+</html>

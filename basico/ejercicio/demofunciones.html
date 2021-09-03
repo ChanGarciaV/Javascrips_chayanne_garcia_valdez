@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>JavaScript Fuctions</title>
+
+</head>
+
+<body>
+    <!-- referencias la función -->
+    <script src="./utils/functions.js"> </script>
+    <script src="./utils/buscar.js"> </script>
+    <script> 
+        let resultado = sumaNumero(5,10);
+        alert(resultado);
+        let encontrado = buscarCaracter("Nabucodonosor"," p");
+        alert(encontrado);
+        let var1 ="p"; 
+        let var2 = "Xico";
+        let enconbool = false;
+        
+        alert(`El contenido ${var1}  ${enconbool?"si":"no"} existe en la cadena ${var2}`); // con el caranter  backtick puede meter
+        // variables dentro del string
+
+        // funcion anonima que esta axinada a una variable (tipo funcion)
+        var elevaAlCuadradoFuncion = function (numero,potencia){
+            return Math.pow(numero,potencia);
+        }
+        // Arrow function esto el lo mismo que el anterior pero con expresion Arrow
+        const potenciaNumero = (numero,potencia) => Math.pow(numero,potencia);
+        alert(potenciaNumero(2,2));
+
+        alert(elevaAlCuadradoFuncion(2,3));
+        const multiplicacion = (x,y) => x*y;
+        alert(multiplicacion(50,20));
+
+       
+    </script>
+</body>
+
+</html>
